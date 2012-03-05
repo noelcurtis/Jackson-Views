@@ -51,11 +51,21 @@ public class MyPoJoImpl implements Serializable{
         return ObjectMapper.getSharedInstance().getObjectMapper().writeValueAsString(this);
     }
 
+    /**
+     * A Method used to render list of MyPojo  objects as JSON with Custom Root Node.
+     * @param listOfPojos
+     * @return
+     * @throws Exception
+     */
     public static String listToJson(List<MyPoJoImpl> listOfPojos)throws Exception{
+        // Reset the shared object mapper to not wrap objects
         ObjectMapper.getSharedInstance().getObjectMapper().configure(SerializationConfig.Feature.WRAP_ROOT_VALUE, false);
+        // Create a Map with Key as your custom root and value as the list
         Map<String, Object> listOfPojosWithRoot = new HashMap<String, Object>();
         listOfPojosWithRoot.put("MyPoJos", listOfPojos);
+        // Render the Map as JSON
         String jsonString = ObjectMapper.getSharedInstance().getObjectMapper().writeValueAsString(listOfPojosWithRoot);
+        // Reset the share object mapper to wrap again
         ObjectMapper.getSharedInstance().getObjectMapper().configure(SerializationConfig.Feature.WRAP_ROOT_VALUE, true);
         return jsonString;
     }

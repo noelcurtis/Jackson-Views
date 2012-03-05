@@ -21,6 +21,7 @@ public class ObjectMapper {
 
     protected ObjectMapper(){
         this.objectMapper = new org.codehaus.jackson.map.ObjectMapper();
+        // Customize the object mapper to set a root node for every object it renders!
         this.objectMapper.configure(SerializationConfig.Feature.WRAP_ROOT_VALUE, true);
     }
 
